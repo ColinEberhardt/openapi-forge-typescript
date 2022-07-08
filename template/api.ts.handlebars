@@ -33,7 +33,7 @@ export default class Api {
         {{#each _sortedParameters}}{{#unless _optional}}
           {
             name: "{{name}}",
-            value: serialize({{name}}, "{{typeConvert schema}}"),
+            value: serialize("{{name}}", {{name}}, "{{in}}", "{{schema.type}}"),
             type: "{{in}}"
           },
         {{/unless}}{{/each}}
@@ -42,7 +42,7 @@ export default class Api {
       if ({{name}}) {
         params.push({
           name: "{{name}}",
-          value: serialize({{name}}, "{{typeConvert schema}}"),
+          value: serialize("{{name}}", {{name}}, "{{in}}", "{{schema.type}}"),
           type: "{{in}}"
         })
       }
@@ -59,4 +59,3 @@ export default class Api {
   {{/each}}  
   {{/each}}
 }
-

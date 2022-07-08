@@ -44,8 +44,37 @@ export function deserialize(json: any, type: string): any {
   return json;
 }
 
-export function serialize(item: any, type: string): string {
-  return typeof item === "object" ? JSON.stringify(item) : item.toString();
+export function serialize(name: string, item: any, location: string, schemaType: string): string {
+
+  if(location === "query"){
+    switch(schemaType){
+      case "array":
+        return querySerializeArray(name, item);
+      case "object":
+        return querySerializeObject(item);
+      default:
+        return querySerializeKvp(name, item);
+    }
+  }
+
+  if(location === "path"){
+    switch(schemaType){
+      case "array":
+        return item.map((it: string) => encodeURIComponent(it)).join(",");
+      case "object":
+        return pathSerializeObject(item);
+      default:
+        return item.toString();
+    }
+  }
+
+  return schemaType === "object" || schemaType === "array" ? JSON.stringify(item) : item.toString();
 }
 
 
+const querySerializeObject = (queryObj: object) => Object.entries(queryObj).map(kvp => querySerializeKvp(kvp[0], kvp[1])).join("&");
+const querySerializeArray = (name: string, queryArray: any) => queryArray.map(function(item :any){ return querySerializeKvp(name, item); }).join("&");
+const querySerializeKvp = (key: any, val: any) => serializeKvp(key, val, "=");
+const pathSerializeObject = (queryObj: object) => Object.entries(queryObj).map(kvp => serializeKvp(kvp[0], kvp[1], ",")).join(",");
+
+const serializeKvp = (key: any, val: any, separator: string) => `${key}${separator}${encodeURIComponent(val)}`

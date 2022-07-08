@@ -5,15 +5,6 @@ import { RequestParameters } from "../../template/request";
 
 import { BaseModelStep } from "./base";
 
-const isJson = (str: string): boolean => {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-};
-
 @binding()
 export class ModelSteps extends BaseModelStep {
   private requestParams: RequestParameters;
@@ -56,13 +47,24 @@ export class ModelSteps extends BaseModelStep {
     await this.api[methodName]();
   }
 
-  @when(/calling the method ([a-zA-Z]*) with parameters "(.*)"/)
-  public async callMethodWithParameters(methodName: string, params: string) {
-    let values = params.split(",");
+  @when(/calling the method ([a-zA-Z]*) with (object|array|parameters) "(.*)"/)
+  public async callMethodWithParameters(methodName: string, paramType: string, params: string) {
+    let values; 
+    switch(paramType){
+      case "object":
+        values = [JSON.parse(params.replace(/'/g, `"`))];
+        break;
+      case "array":
+        values = [params.split(",")];
+        break;
+      default:
+        values = params.split(",");
+    }
+
     if (!this.api[methodName]) {
       console.error(`Method ${methodName} not found`);
     }
-    values = values.map((value) => (isJson(value) ? JSON.parse(value) : value));
+
     await this.api[methodName].apply(this.api, values);
   }
 
@@ -78,7 +80,7 @@ export class ModelSteps extends BaseModelStep {
 
   @then(/the request should have a body with value "(.*)"/)
   public checkRequestBody(body: string) {
-    assert.equal(this.requestParams.body, body);
+    assert.equal(this.requestParams.body, body.replace(/'/g, `"`));
   }
 
   @when(/calling the method ([a-zA-Z]*) and the server provides an empty response/)

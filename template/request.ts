@@ -27,7 +27,7 @@ export async function request(
   for (const pathParam of params.filter((p) => p.type === "path")) {
     path = path.replace(
       `{${pathParam.name}}`,
-      encodeURIComponent(pathParam.value.toString())
+      pathParam.value
     );
   }
 
@@ -37,11 +37,7 @@ export async function request(
   // build the query string
   const queryParams = params.filter((p) => p.type === "query");
   if (method === "get" && queryParams.length > 0) {
-    url +=
-      "?" +
-      new URLSearchParams(
-        queryParams.map((p) => [p.name, p.value]) as [string, string][]
-      );
+    url += "?" + queryParams.map((p) => p.value).join("&");
   }
 
   // add additional headers
