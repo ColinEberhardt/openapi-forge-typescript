@@ -4,6 +4,9 @@
 const cliArgs = process.argv.slice(2);
 const generatePath = cliArgs[cliArgs.length - 1];
 
+console.log("cliArgs!!!");
+console.log(cliArgs);
+
 if (!generatePath) {
   throw new Error(`You must provide a path to generate.js.`);
 }
