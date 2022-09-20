@@ -4,13 +4,13 @@ const shell = require("shelljs");
 const clArgs = process.argv.slice(2);
 
 // Retrieve the path to feature paths from cl arguments of 'npm test', use default value if none given
-const featurePath = clArgs[0] || "../openapi-forge/features/*.feature";
+const featurePath = clArgs[0] || "node_modules/openapi-forge/features/*.feature";
 
 // Retrieve the path to generate.js from cl arguments of 'npm test', use default value if none given
 const generatePath = clArgs[1] || "openapi-forge/src/generate";
 
 console.log("CLARGS1:");
-console.log(clArgs);
+console.log(process.argv);
 
 // Pass both paths to cucumber-js which spawns another node process to handle the testing.
 shell.exec(`./node_modules/.bin/cucumber-js -p default ${featurePath} ${generatePath}`);
