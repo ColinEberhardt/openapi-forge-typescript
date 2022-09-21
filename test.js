@@ -10,5 +10,5 @@ const featurePath = clArgs[0] || "node_modules/openapi-forge/features/*.feature"
 const generatePath = clArgs[1] || "openapi-forge/src/generate";
 
 // Pass both paths to cucumber-js which spawns another node process to handle the testing.
-shell.cd("./node_modules/.bin", log.shellOptions);
+shell.cd("./node_modules/.bin");
 shell.exec(`cucumber-js -p default "${featurePath}" "${generatePath}"`);
