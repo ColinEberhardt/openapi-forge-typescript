@@ -13,4 +13,4 @@ console.log("CLARGS1:");
 console.log(process.argv);
 
 // Pass both paths to cucumber-js which spawns another node process to handle the testing.
-shell.exec(`./node_modules/.bin/cucumber-js -p default ${featurePath} ${generatePath}`);
+shell.exec(`./node_modules/.bin/cucumber-js -p default "${featurePath}" "${generatePath}"`);
