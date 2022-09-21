@@ -3,6 +3,8 @@
 // Retrieve the path to feature paths from cl arguments of cucumber-js
 const featurePath = process.argv.slice(2)[2];
 
+console.log("featurePath:" + featurePath);
+
 if (!featurePath) {
   throw new Error(`You must provide a path to the feature files.`);
 }
