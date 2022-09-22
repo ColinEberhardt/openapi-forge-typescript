@@ -12,4 +12,4 @@ const generatePath = clArgs[1] || "openapi-forge/src/generate";
 // Pass both paths to cucumber-js which spawns another node process to handle the testing.
 const result = shell.exec(`"./node_modules/.bin/cucumber-js" -p default "${featurePath}" "${generatePath}"`);
 
-process.exit(result);
+process.exit(result.code);
