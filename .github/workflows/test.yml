@@ -2,12 +2,12 @@ name: Test
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
-  run-eslint:
+  test-generator:
     name: Test
     runs-on: ubuntu-latest
     strategy:
@@ -27,5 +27,5 @@ jobs:
         run: |
           npm install
 
-      - name: test:generator
+      - name: test-generator
         run: npm run test
