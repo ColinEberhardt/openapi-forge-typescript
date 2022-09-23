@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install Node.js dependencies globally
+      - name: Install Node.js dependencies
         run: |
           npm install
 
