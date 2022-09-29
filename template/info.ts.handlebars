@@ -1,0 +1,28 @@
+export interface infoInterface {
+  {{#each info}}
+  {{@key}}: 
+  {{#if (isObj this) }}
+  {
+    {{#each this}}
+      {{@key}}: string;
+    {{/each}}
+  },
+  {{else}}string;
+  {{/if}}
+  {{/each}}
+}
+
+export const info: infoInterface = {
+  {{#each info}}
+  {{@key}}: 
+  {{#if (isObj this) }}
+  {
+    {{#each this}}
+        {{@key}}: "{{this}}",
+    {{/each}}
+  },
+  {{else}}"{{this}}",
+  {{/if}}
+  {{/each}}
+};
+
