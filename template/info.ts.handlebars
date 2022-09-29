@@ -1,5 +1,5 @@
 export interface infoInterface {
-  {{#each info}}
+  {{#each _info}}
   {{@key}}: 
   {{#if (isObj this) }}
   {
@@ -13,7 +13,7 @@ export interface infoInterface {
 }
 
 export const info: infoInterface = {
-  {{#each info}}
+  {{#each _info}}
   {{@key}}: 
   {{#if (isObj this) }}
   {
