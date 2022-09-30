@@ -1,18 +1,18 @@
-export interface infoInterface {
-  {{#each _info}}
-  {{@key}}: 
-  {{#if (isObj this) }}
-  {
-    {{#each this}}
-      {{@key}}: string;
-    {{/each}}
-  },
-  {{else}}string;
-  {{/if}}
-  {{/each}}
+export interface InfoInterface {
+  title: string;
+  description?: string;
+  termsOfService?: string;
+  contact?: {
+    email?: string;
+  };
+  license?: {
+    name?: string;
+    url?: string;
+  };
+  version: string;
 }
 
-export const info: infoInterface = {
+export const Info: InfoInterface = {
   {{#each _info}}
   {{@key}}: 
   {{#if (isObj this) }}
