@@ -5,12 +5,12 @@ function parseTestResultNumber(number) {
 
 function parse(results) {
   const ll = results.length;
-  
+
   const failLineRegex = /\d+\)\sScenario:\s(.*)\s#.*/;
   let failures = [];
   let rr;
   for (let xx = 0; xx < ll; xx++) {
-    if((rr = results[xx].match(failLineRegex))) failures.push(rr[1]);
+    if ((rr = results[xx].match(failLineRegex))) failures.push(rr[1]);
   }
 
   let result;
