@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "prettier": "^2.7.1"
-    
   },
   "engines": {
     "node": ">=16.0.0"
