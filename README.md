@@ -35,8 +35,8 @@ npm run test:defaultPaths
 
 This method uses:
 
- - `featurePath` - `node_modules/openapi-forge/features/*.feature`
- - `generatorPath` - `openapi-forge/src/generate`
+- `featurePath` - `node_modules/openapi-forge/features/*.feature`
+- `generatorPath` - `openapi-forge/src/generate`
 
 The second script requires values for the featurePath & generatePath:
 
@@ -63,4 +63,3 @@ This runs eslint in write mode which will raise errors found and try to fix them
 ## Notes
 
 The openapi-forge dependency is pointing to commit:0fb044b3a2808e8faf82786f168a12763f5aaeca. If openapi-forge is updated and openapi-forge-typescript requires this updated version then the commit reference in package.json will have to be updated. This is a temporary measure and will be fixed once the packages are properly versioned and hosted on npm.
-
