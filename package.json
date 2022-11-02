@@ -6,11 +6,11 @@
     "prepare": "husky install",
     "test": "\"./node_modules/.bin/cucumber-js\" -p default",
     "test:defaultPath": "\"./node_modules/.bin/cucumber-js\" -p default \"node_modules/openapi-forge/features/*.feature\" \"openapi-forge/src/generate\"",
-    "format:check": "prettier --check .",
-    "format:write": "prettier --write .",
-    "format:output": "prettier --write",
-    "lint:check": "eslint .",
-    "lint:write": "eslint --fix ."
+    "format:check:all": "prettier --check .",
+    "format:write:all": "prettier --write .",
+    "format:write": "prettier --write",
+    "lint:check:all": "eslint .",
+    "lint:write:all": "eslint --fix ."
   },
   "license": "MIT",
   "devDependencies": {
