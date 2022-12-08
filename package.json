@@ -8,7 +8,7 @@
   "scripts": {
     "prepare": "husky install",
     "test": "\"./node_modules/.bin/cucumber-js\" -p default",
-    "test:defaultPath": "\"./node_modules/.bin/cucumber-js\" -p default \"../openapi-forge/features/*.feature\" \"../../../openapi-forge/src/generate\"",
+    "test:defaultPaths": "\"./node_modules/.bin/cucumber-js\" -p default \"../openapi-forge/features/*.feature\" \"../../../openapi-forge/src/generate\"",
     "format:check:all": "prettier --check .",
     "format:write:all": "prettier --write .",
     "format:write": "prettier --write",
