@@ -1,18 +1,14 @@
-// cucumber.js
-
-// Retrieve the path to feature paths from cl arguments of cucumber-js
-const cliArgs = process.argv.slice(2);
-const featurePath = cliArgs[cliArgs.length - 2];
-if (!featurePath) {
-  throw new Error(`You must provide a path to the feature files.`);
-}
-
-let common = [
-  featurePath, // Specify our feature files
-  "--require-module ts-node/register", // Load TypeScript module
-  "--require features/support/*.ts", // Load step definitions
-].join(" ");
+const common = {
+  paths: ["../openapi-forge/features/*.feature"],
+  require: ["features/support/*.ts"],
+  requireModule: ["ts-node/register"],
+  publishQuiet: true,
+};
 
 module.exports = {
   default: common,
+  generators: {
+    ...common,
+    format: ["message"],
+  },
 };
