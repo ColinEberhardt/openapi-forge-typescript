@@ -8,7 +8,7 @@
   "scripts": {
     "prepare": "husky install",
     "test": "\"./node_modules/.bin/cucumber-js\" -p default",
-    "test:defaultPaths": "\"./node_modules/.bin/cucumber-js\" -p default \"../openapi-forge/features/*.feature\" \"../../../openapi-forge/src/generate\"",
+    "test:generators": "\"./node_modules/.bin/cucumber-js\" -p generators",
     "format:check:all": "prettier --check .",
     "format:write:all": "prettier --write .",
     "format:write": "prettier --write",
@@ -19,6 +19,8 @@
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
+    "@cucumber/cucumber": "^8.9.0",
+    "@cucumber/messages": "^20.0.0",
     "@types/chai": "^4.1.7",
     "@types/chai-spies": "^1.0.3",
     "@types/cucumber": "^4.0.5",
@@ -26,9 +28,7 @@
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
     "chai": "^4.2.0",
-    "cucumber": "^5.1.0",
-    "cucumber-pretty": "^1.5.0",
-    "cucumber-tsflow": "^3.2.0",
+    "cucumber-tsflow": "^4.0.0-rc.7",
     "eslint": "^8.24.0",
     "husky": "^8.0.1",
     "semantic-release": "^19.0.5",
