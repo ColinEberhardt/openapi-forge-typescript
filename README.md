@@ -1,26 +1,33 @@
 ## OpenAPI Forge - TypeScript
 
-This repository is the TypeScript template for the [OpenAPI Forge](https://github.com/ScottLogic/openapi-forge), see that repository for usage instructions:
+This repository is the TypeScript generator for the [OpenAPI Forge](https://github.com/ScottLogic/openapi-forge), see that repository for usage instructions:
 
 https://github.com/ScottLogic/openapi-forge
 
 ## Development
 
+### Running
+
+To run this generator, you also need to have [OpenAPI Forge] installed, or the repository checked out. Assuming you have it installed as a global module, you can run this generator as follows:
+
+~~~
+$ openapi-forge forge
+ \ https://petstore3.swagger.io/api/v3/openapi.json
+ \ .
+ \ -o api
+~~~
+
+This generates an API from the Pet Store swagger definition, using the generator within the current folder (`.`), outputting the results to the `api` folder.
+
 ### Testing
 
-There are two scripts that can be used for testing, one that uses preset values for file paths to feature files and the `generate.js` file of the forge:
-
-Using default values:
+The standard test script is used to execute the BDD-style tests against this generator.
 
 ```
-npm run test:defaultPaths
+npm run test
 ```
 
-The second script requires values for the featurePath & generatePath:
-
-```
-npm test {featurePath} {generatorPath}
-```
+The script expects that the openapi-forge project (which is where the BDD feature files are located) is checked out at the same folder-level as this project.
 
 ### Linting
 
