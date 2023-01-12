@@ -4,6 +4,8 @@ This repository is the TypeScript generator for the [OpenAPI Forge](https://gith
 
 https://github.com/ScottLogic/openapi-forge
 
+The client API it generates is suitable for running in the browser (after being bundled appropriately), or via node. The generated code uses the Fetch API, and as a result you'll need to use node v18 or greater.
+
 ## Example
 
 You should consult the [OpenAPI Forge](https://github.com/ScottLogic/openapi-forge) repository for a complete user guide. The following is a very brief example that quickly gets you up-and-running with this generator.
@@ -17,20 +19,16 @@ $ openapi-forge forge \
                 -o api
 ```
 
-This will generate various files in the `api` folder. The API depends on the node-fetch module, which provides Fetch API for node applications. To run this client you'll need to add that as a dependency:
+This will generate various files in the `api` folder.
 
-```
-% npm init -y --silent
-% npm i node-fetch@2.6.6
-% npm i --save-dev @types/node-fetch
-```
+### Running with node (>= v18)
 
-Finally, add the following `index.ts` in the `api` folder:
+Add the following `index.ts` in the `api` folder:
 
 ```typescript
-import ApiPet from "./api/apiPet";
-import Configuration from "./api/configuration";
-import { transport } from "./api/nodeFetch";
+import ApiPet from "./apiPet";
+import Configuration from "./configuration";
+import transport from "./fetch";
 
 // create API client
 const config = new Configuration(transport);
@@ -56,6 +54,30 @@ To test the API, this example adds a Pet named “Fido” to the Pet Store, then
 % npx ts-node index.ts
 Fido
 ```
+
+### Running in the browser
+
+The first step is to transpile from TypeScript to JavaScript:
+
+```
+% tsc
+```
+
+Following this, bundle the files into a single script. There are various tools that can be used for this purpose, but browserify is one of the simplest:
+
+```
+% npx browserify index.js -o bundle.js
+```
+
+Next create a simple HTML file that loads this script:
+
+```
+<html>
+<script src="bundle.js"></script>
+</html>
+```
+
+Load the above page in a browser and you should see `Fido` logged to the console.
 
 ## Development
 
