@@ -7,8 +7,8 @@
   ],
   "scripts": {
     "prepare": "husky install",
-    "test": "\"./node_modules/.bin/cucumber-js\" -p default",
-    "test:generators": "\"./node_modules/.bin/cucumber-js\" -p generators",
+    "test": "cross-env-shell ./node_modules/.bin/cucumber-js -p default",
+    "test:generators": "cross-env-shell ./node_modules/.bin/cucumber-js -p generators",
     "format:check:all": "prettier --check .",
     "format:write:all": "prettier --write .",
     "lint:check:all": "eslint .",
@@ -27,6 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
     "chai": "^4.2.0",
+    "cross-env": "^7.0.3",
     "cucumber-tsflow": "^4.0.0-rc.7",
     "eslint": "^8.24.0",
     "husky": "^8.0.1",
