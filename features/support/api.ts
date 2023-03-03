@@ -138,17 +138,17 @@ export class ModelSteps extends BaseModelStep {
 
   @then(/the response should be of type (.*)/)
   public checkResponseType(type: string) {
-    assert.equal(this.apiResponse.constructor.name, type);
+    assert.equal(this.apiResponse.data.constructor.name, type);
   }
 
   @then(/the response should be equal to "(.*)"/)
   public checkResponseValue(value: string) {
-    assert.equal(this.apiResponse, value);
+    assert.equal(this.apiResponse.data, value);
   }
 
   @then(/the response should have a property ([a-zA-Z]*) with value (.*)/)
   public checkResponseProperty(propName: string, propValue: string) {
-    const value = this.apiResponse[propName];
+    const value = this.apiResponse.data[propName];
     const formattedValue =
       value instanceof Date ? value.toISOString() : value.toString();
     assert.equal(formattedValue, propValue);
@@ -156,12 +156,12 @@ export class ModelSteps extends BaseModelStep {
 
   @then(/the response should be an array/)
   public checkArrayResponse() {
-    assert.isArray(this.apiResponse);
+    assert.isArray(this.apiResponse.data);
   }
 
   @when(/extracting the object at index ([0-9]*)/)
   public extractAtIndex(index: string) {
-    this.apiResponse = this.apiResponse[parseInt(index)];
+    this.apiResponse.data = this.apiResponse.data[parseInt(index)];
   }
 
   @then(/the request method should be of type (.*)/)
