@@ -44,7 +44,7 @@ export default class Api{{_tag.name}} {
           {{typeConvert schema ../../../_options}}
           {{#if schema.default}} = {{{quoteIfString schema.default}}}{{/if}},
         {{/each}}
-      ): Promise<{{#if _response.schema}}HttpResponse<{{typeConvert _response.schema ../../_options}}>{{else}}null{{/if}}> {
+      ): Promise<HttpResponse<{{#if _response.schema}}{{typeConvert _response.schema ../../_options}}{{else}}any{{/if}}>> {
 
         const builder = new ParameterBuilder();
         {{#each _sortedParameters}}{{#unless _optional}}
@@ -60,10 +60,11 @@ export default class Api{{_tag.name}} {
         const response = await request(this.config, "{{@root.path}}", "{{@key}}", builder.parameters);
         {{#if _response.schema}}
         return {
-          data: deserialize(response, "{{typeConvert _response.schema}}")
+          ... response,
+          data: deserialize(response.data, "{{typeConvert _response.schema}}")
         };
         {{else}}
-        return null;
+        return response;
         {{/if}}
       };
     {{/ifEquals}}

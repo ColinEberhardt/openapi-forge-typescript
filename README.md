@@ -44,7 +44,7 @@ const api = new ApiPet(config);
   });
 
   const pet = await api.getPetById(1);
-  console.log(pet.name);
+  console.log(pet.data.name);
 })();
 ```
 

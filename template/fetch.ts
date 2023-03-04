@@ -1,9 +1,30 @@
 import { RequestParameters } from "./request";
+import { Transport } from "../api/configuration";
 
-export default async function transport(params: RequestParameters) {
-  const response = await fetch(params.url, params);
-  if (response.status !== 200) {
-    throw new Error(`${response.status} ${response.statusText}`);
+const parseHeaders = (headers: Headers) => {
+  let res: Record<string, string> = {};
+  for (let [key, value] of headers.entries()) {
+    res[key] = value;
   }
-  return await response.json();
-}
+  return res;
+};
+
+const transport: Transport = async function (params: RequestParameters) {
+  const fetchResponse = await fetch(params.url, params);
+
+  if (fetchResponse.ok) {
+    const json = await fetchResponse.json();
+    return {
+      data: json,
+      statusCode: fetchResponse.status,
+      headers: parseHeaders(fetchResponse.headers),
+      type: fetchResponse.type,
+    };
+  } else {
+    throw new Error(
+      `Error ${fetchResponse.status}: ${fetchResponse.statusText}`
+    );
+  }
+};
+
+export default transport;

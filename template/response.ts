@@ -3,4 +3,7 @@
  */
 export interface HttpResponse<T> {
   data: T;
-} 
+  statusCode: number;
+  headers: Record<string, string>;
+  type: string;
+}

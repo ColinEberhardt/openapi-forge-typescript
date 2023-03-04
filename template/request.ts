@@ -1,15 +1,14 @@
 import Configuration from "./configuration";
 import { Parameter } from "./parameterBuilder";
+import { HttpResponse } from "./response";
 
-export interface Headers {
-  [index: string]: string;
-}
+type Headers = Record<string, string>;
 
 export interface RequestParameters {
   url: string;
   method: string;
   body?: string;
-  headers: Headers;
+  headers: Record<string, string>;
 }
 
 export async function request(
@@ -17,7 +16,7 @@ export async function request(
   path: string,
   method: string,
   params: Parameter[]
-): Promise<any> {
+): Promise<HttpResponse<any>> {
   // replace path parameters with values
   for (const pathParam of params.filter((p) => p.location === "path")) {
     path = path.replace(
