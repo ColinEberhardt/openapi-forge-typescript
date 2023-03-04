@@ -31,7 +31,9 @@ export class ModelSteps extends BaseModelStep {
       const configurationModule = require("../api/configuration.ts");
       const mockTransport = async (params: RequestParameters) => {
         this.requestParams = params;
-        return this.serverResponseObject;
+        return {
+          data: this.serverResponseObject
+        }
       };
 
       const config = new configurationModule.default(mockTransport);
@@ -127,7 +129,7 @@ export class ModelSteps extends BaseModelStep {
 
   @then(/the response should be null/)
   public checkResponseIsNull() {
-    assert.isNull(this.apiResponse);
+    assert.isNull(this.apiResponse.data);
   }
 
   @when(/calling the method ([a-zA-Z]*) and the server responds with/)

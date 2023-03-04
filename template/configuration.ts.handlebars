@@ -1,10 +1,11 @@
 import { RequestParameters } from "./request";
+import { HttpResponse } from "./response";
 
 /**
  * A function which performs a request to the API.
  */
-export interface TransportFunc {
-  (request: RequestParameters): Promise<any>;
+export interface Transport {
+  (request: RequestParameters): Promise<HttpResponse<any>>;
 }
 
 /**
@@ -29,9 +30,9 @@ export default class Configuration {
    */
   public basePath?: string;
   public bearerToken?: string;
-  public transport: TransportFunc;
+  public transport: Transport;
 
-  constructor(transport: TransportFunc) {
+  constructor(transport: Transport) {
     this.transport = transport;
   }
 }
