@@ -2,8 +2,8 @@ import { RequestParameters } from "./request";
 import { Transport } from "../api/configuration";
 
 const parseHeaders = (headers: Headers) => {
-  let res: Record<string, string> = {};
-  for (let [key, value] of headers.entries()) {
+  const res: Record<string, string> = {};
+  for (const [key, value] of headers.entries()) {
     res[key] = value;
   }
   return res;
