@@ -22,6 +22,7 @@ export class ModelSteps extends BaseModelStep {
   private requestParams: RequestParameters;
   private apiResponse: any;
   private serverResponseObject: any;
+  private serverResponseHeaders: any;
   private api: any;
   private request: any;
 
@@ -32,8 +33,9 @@ export class ModelSteps extends BaseModelStep {
       const mockTransport = async (params: RequestParameters) => {
         this.requestParams = params;
         return {
-          data: this.serverResponseObject
-        }
+          data: this.serverResponseObject,
+          headers: this.serverResponseHeaders,
+        };
       };
 
       const config = new configurationModule.default(mockTransport);
@@ -48,6 +50,7 @@ export class ModelSteps extends BaseModelStep {
   @after()
   public async after() {
     this.serverResponseObject = undefined;
+    this.serverResponseHeaders = undefined;
     this.apiResponse = undefined;
 
     return this.cleanup();
@@ -132,10 +135,22 @@ export class ModelSteps extends BaseModelStep {
     assert.isNull(this.apiResponse.data);
   }
 
-  @when(/calling the method ([a-zA-Z]*) and the server responds with/)
+  @when(/calling the method ([a-zA-Z]*) and the server responds with$/)
   public async callWithResponse(methodName: string, response: string) {
     this.serverResponseObject = JSON.parse(response);
     this.apiResponse = await this.api[methodName]();
+  }
+
+  @when(/calling the method ([a-zA-Z]*) and the server responds with headers$/)
+  public async callWithResponseHeaders(methodName: string, headers: string) {
+    this.serverResponseObject = {};
+    this.serverResponseHeaders = JSON.parse(headers);
+    this.apiResponse = await this.api[methodName]();
+  }
+
+  @then(/the response should have a header (.*) with value (.*)/)
+  public checkResponseHeader(prop: string, value: string) {
+    assert.equal(this.apiResponse.headers[prop], value);
   }
 
   @then(/the response should be of type (.*)/)
