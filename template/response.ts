@@ -23,6 +23,6 @@ export interface HttpResponse<T> {
   /**
    * The type of the response (e.g., basic, cors).
    * @type string
-   */ 
+   */
   type: string;
 }
