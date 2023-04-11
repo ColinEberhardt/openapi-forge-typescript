@@ -18,6 +18,6 @@ export class {{@key}} {
   ];
 
   {{#each properties}}
-    public {{@key}}{{#unless _required}}?{{/unless}}: {{typeConvert this}};
+    public {{@key}}{{#if _required}}!{{else}}?{{/if}}: {{typeConvert this}};
   {{/each}}
 }
