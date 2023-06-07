@@ -1,3 +1,9 @@
+export interface PropertyMetadata {
+  name: string,
+  type: string,
+  required: boolean
+}
+
 {{#each components.schemas}}
 {{> model}}
 
