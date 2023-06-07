@@ -8,11 +8,12 @@
  */
 export class {{@key}} {
 
-  static propertyTypes: Array<{name: string, type: string}> =  [
+  static propertyTypes: Array<PropertyMetadata> =  [
     {{#each properties}}
       {
         name: "{{@key}}",
-        type: "{{typeConvert this}}"
+        type: "{{typeConvert this}}",
+        required: {{#if _required}}true{{else}}false{{/if}}
       },
     {{/each}}
   ];
@@ -20,4 +21,11 @@ export class {{@key}} {
   {{#each properties}}
     public {{@key}}{{#unless _required}}?{{/unless}}: {{typeConvert this}};
   {{/each}}
+
+  constructor(
+    {{#each properties}}{{#if _required}}{{@key}}: {{typeConvert this}},{{/if}}{{/each}}
+  ) {
+    {{#each properties}}{{#if _required}}
+      this.{{@key}} = {{@key}};{{/if~}}{{/each~}}
+  }
 }

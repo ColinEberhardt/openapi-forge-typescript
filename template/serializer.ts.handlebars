@@ -1,7 +1,9 @@
 {{#if _options.testRun }}
 const model = require("./model");
+const PropertyMetadata = model.PropertyMetadata;
 {{else}}
 import * as model from "./model";
+import { PropertyMetadata } from "./model";
 {{/if}}
 
 // takes a JSON response and deserializes it into the required model objects / types
@@ -15,9 +17,17 @@ export function deserialize(json: any, type: string): any {
 
   // handle model objects
   if (model.models.includes(type)) {
-    const modelObject = new (<any>model)[type]();
+    // get the required and optional properties
     const properties = (<any>model)[type].propertyTypes;
-    for (const property of properties) {
+    const requiredProperties = properties.filter((property: {{#if _options.testRun }}typeof {{/if}}PropertyMetadata ) => property.required);
+    const optionalProperties = properties.filter((property: {{#if _options.testRun }}typeof {{/if}}PropertyMetadata) => !property.required);
+    const requiredPropertyValues = requiredProperties.map((property: {{#if _options.testRun }}typeof {{/if}}PropertyMetadata) => deserialize(json[property.name], property.type));
+
+    // create the model object
+    const modelObject = new (<any>model)[type](...requiredPropertyValues);
+    
+    // set the optional properties
+    for (const property of optionalProperties) {
       if (json[property.name] !== undefined) {
         modelObject[property.name] = deserialize(json[property.name], property.type);
       }
